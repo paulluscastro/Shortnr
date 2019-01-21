@@ -1,0 +1,87 @@
+﻿@model EditUrlModel
+@{
+    ViewData["Title"] = "Edit My URL";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="text-danger" asp-validation-summary="All"></div>
+
+<div>
+    <h4>My URL Details</h4>
+    <hr />
+    <dl class="row">
+        <div class="col-12">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Original.OriginalUrl)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Original.OriginalUrl)
+            </dd>
+        </div>
+    </dl>
+    <dl class="row">
+        <div class="col-4">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Original.ExpiresOn)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Original.ExpiresOn)
+            </dd>
+        </div>
+        <div class="col-4">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Original.Created)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Original.Created)
+            </dd>
+        </div>
+        <div class="col-4">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Original.LastUpdated)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Original.LastUpdated)
+            </dd>
+        </div>
+    </dl>
+    <dl class="row">
+        <div class="col-4">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Original.Accesses)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Original.Accesses)
+            </dd>
+        </div>
+        <div class="col-4">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Original.LastAccess)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Original.LastAccess)
+            </dd>
+        </div>
+    </dl>
+</div>
+<form asp-action="Edit" method="post">
+    <div class="form-row">
+        <div class="form-group col-8">
+            <label asp-for="Edit.NewShortened">Shortened URL</label>
+            <input asp-for="Edit.NewShortened" type="text" class="form-control" id="shortenedUrl" aria-describedby="shortenedUrlHelp" placeholder="http://www.originalurl.com" />
+            <small id="shortenedUrlHelp" class="form-text text-muted">You can try to make it more user-friendly if you want to, but the result is not guaranteed.</small>
+        </div>
+        <div class="form-group col-4">
+            <label asp-for="Edit.Expiration">Link Expiratrion</label>
+            <select asp-for="Edit.Expiration" class="form-control" id="expiration">
+                <option value="1">One Week</option>
+                <option value="2">One Month</option>
+                <option value="3">One Year</option>
+                <option value="4">Forever</option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Confirm</button>
+    <button type="submit" class="btn">Back</button>
+</form>

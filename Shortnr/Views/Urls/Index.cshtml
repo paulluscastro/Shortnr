@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Shortnr.Commons.DTO.Output.ShortenedUrlOutputDTO>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+    <h1>My URLs</h1>
+    <p>
+        <a class="btn btn-primary" asp-action="ShortenLink">Shorten new URL</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ShortenedUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OriginalUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpiresOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Accesses)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastAccess)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.ShortenedUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.OriginalUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.ExpiresOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Accesses)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.LastAccess)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ShortenedUrl"><span class="icon-pencil"></span> Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ShortenedUrl"><span class="icon-magnifier"></span> Details</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

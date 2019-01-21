@@ -1,0 +1,49 @@
+version: '3.4'
+
+networks: 
+  shortnr-network:
+    driver: bridge
+
+services:
+  shortnr:
+    container_name: shortnr.web
+    image: ${DOCKER_REGISTRY-}shortnr
+    build:
+      context: .
+      dockerfile: Shortnr/Dockerfile
+    networks:
+      - shortnr-network
+    environment:
+      - ShortnrApiUrl=http://shortnr.api/
+    depends_on:
+      - shortnr.sql
+      - shortnr.api
+
+  shortnr.api:
+    container_name: shortnr.api
+    image: ${DOCKER_REGISTRY-}shortnr.api
+    build:
+      context: .
+      dockerfile: Shortnr.Api/Dockerfile
+    networks:
+      - shortnr-network
+    depends_on:
+      - shortnr.sql
+
+  shortnr.sql:
+    container_name: shortnr.sql
+    image: microsoft/mssql-server-linux:2017-latest
+    networks:
+      - shortnr-network
+    environment:
+      - SA_PASSWORD=V4nhack*Test!
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+#    volumes:
+#      - /var/opt/mssql
+#      - ./database/sql:/usr/src/app
+#    # bash will be executed from that path, our scripts folder
+#    working_dir: /usr/src/app
+#    # run the entrypoint.sh that will import the data AND
+#    command: sh -c ' chmod +x ./start.sh; ./start.sh & /opt/mssql/bin/sqlservr;'

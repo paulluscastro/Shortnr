@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shortnr.Models;
 
@@ -14,8 +15,7 @@ namespace Shortnr.Controllers
         {
             return View();
         }
-
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }
