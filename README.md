@@ -4,9 +4,12 @@ The solution is made of 2 projects: a WEB API, which publicly available after it
 
 Each project is distributed into a separated Docker Container and both access a single SQL Server 2017 Database which is ran on another Docker Container.
 
-After running the project the MVC project will be available at port 44336 and the Web API will be exposed at port 54411.
+After running the project the MVC project will be available at port 62386 and the Web API will be exposed at port 54411.
 
 The API URL that shortens URLs is: /api/v1/shorten
+
+Redirection is made by the api: ```https://localhost:54411/{your new url}``` will redirect you to the original URL stored in the database. Additionally it will increase the number of accesses that that URL had and the last time it was accessed.
+
 
 To shorten a URL just **POST** an object like this to that URL:
 ```json
