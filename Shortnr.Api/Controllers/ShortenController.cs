@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Shortnr.Api.Domain;
@@ -44,13 +46,17 @@ namespace Shortnr.Api.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(shortened)) return NotFound();
                 Url url = _service.Get(userId, shortened);
-                return url == null ? null : Ok(Convert(url));
+                if (url == null)
+                    return NotFound();
+                else
+                    return Ok(Convert(url));
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error during URL shortening. Message: {ex.Message}");
-                throw ex;
+                return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
             }
         }
 

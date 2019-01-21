@@ -43,7 +43,10 @@ namespace Shortnr.Controllers
                 var response = await client.GetAsync($"api/v1/shorten/{user.Id}");
                 if (!response.IsSuccessStatusCode)
                 {
-                    ModelState.AddModelError(string.Empty, "API error. An exception occurred while listing your URLs.");
+                    if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                        return RedirectToAction("404", "Home");
+                    else
+                        ModelState.AddModelError(string.Empty, "API error. An exception occurred while listing your URLs.");
                 }
                 else
                 {
