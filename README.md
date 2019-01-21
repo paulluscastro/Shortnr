@@ -1,5 +1,4 @@
-# Shortnr
-A URL Shortener
+# Shortnr **A URL Shortener**
 
 The solution is made of 2 projects: a WEB API, which publicly available after its docker container is up, and a ASP.NET MVC interface to make it easier for the users to see statistics and send new URLs to be shortened.
 
@@ -34,3 +33,10 @@ After shortening you will receive an object like this:
     "lastAccess": null
 }
 ```
+# How to run
+Download the repository, extract its contents, navigate to the folder where you extracted it (aim for the file "docker-compose.yml") and run:
+
+```sh
+docker-compose up
+```
+If this does not work it might be necessary to install Docker in your machine. Refer to [Docker Hub](https://www.docker.com/get-started) to download the proper installation or read the instructions to install it in your OS.
