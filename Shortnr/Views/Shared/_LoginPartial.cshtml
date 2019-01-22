@@ -11,7 +11,7 @@
                 <a class="btn dropdown-toggle" href="#" role="button" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="icon-user"></span> @User.Identity.Name
                 </a>
-                <div class="dropdown-menu" aria-labelledby="userMenu">
+                <div id="user-menu" class="dropdown-menu" aria-labelledby="userMenu">
                     <a class="dropdown-item" asp-controller="Urls" asp-action="Index">My URLs</a>
                     <button type="submit" class="dropdown-item">Logout</button>
                 </div>

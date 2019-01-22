@@ -25,6 +25,8 @@ services:
     build:
       context: .
       dockerfile: Shortnr.Api/Dockerfile
+    environment:
+      - ShortnrMvcUrl=http://shortnr/
     networks:
       - shortnr-network
     depends_on:

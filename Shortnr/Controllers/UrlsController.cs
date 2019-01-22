@@ -44,7 +44,7 @@ namespace Shortnr.Controllers
                 if (!response.IsSuccessStatusCode)
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                        return RedirectToAction("404", "Home");
+                        return RedirectToAction("NotFound", "Home");
                     else
                         ModelState.AddModelError(string.Empty, "API error. An exception occurred while listing your URLs.");
                 }
@@ -68,7 +68,10 @@ namespace Shortnr.Controllers
                 var response = await client.GetAsync($"api/v1/shorten/{user.Id}/{id}");
                 if (!response.IsSuccessStatusCode)
                 {
-                    ModelState.AddModelError(string.Empty, "API error. This shortened URL was not found.");
+                    if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                        return RedirectToAction("NotFound", "Home");
+                    else
+                        ModelState.AddModelError(string.Empty, "API error. This shortened URL was not found.");
                 }
                 else
                 {
@@ -89,7 +92,10 @@ namespace Shortnr.Controllers
                 var response = await client.GetAsync($"api/v1/shorten/{user.Id}/{id}");
                 if (!response.IsSuccessStatusCode)
                 {
-                    ModelState.AddModelError(string.Empty, "API error. This shortened URL was not found.");
+                    if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                        return RedirectToAction("NotFound", "Home");
+                    else
+                        ModelState.AddModelError(string.Empty, "API error. This shortened URL was not found.");
                 }
                 else
                 {
@@ -123,7 +129,10 @@ namespace Shortnr.Controllers
                 var response = await client.PostAsync($"api/v1/shorten/{user.Id}/{id}", content);
                 if (!response.IsSuccessStatusCode)
                 {
-                    ModelState.AddModelError(string.Empty, "API error. An error occurred while editing your URL.");
+                    if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                        return RedirectToAction("NotFound", "Home");
+                    else
+                        ModelState.AddModelError(string.Empty, "API error. An error occurred while editing your URL.");
                     return View();
                 }
                 else

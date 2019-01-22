@@ -13,6 +13,21 @@ namespace Shortnr.Controllers
 {
     public class HomeController : Controller
     {
+        [Route("/{shortened}")]
+        public async Task<IActionResult> Redir(string shortened)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Environment.GetEnvironmentVariable("ShortnrApiUrl"));
+                var response = await client.GetAsync($"{shortened}");
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                    return View("NotFound");
+                else if (response.StatusCode == HttpStatusCode.Gone)
+                    return View("Expired");
+                else
+                    return RedirectPermanent(response.RequestMessage.RequestUri.AbsoluteUri);
+            }
+        }
         public IActionResult Index()
         {
             return View();
@@ -21,8 +36,11 @@ namespace Shortnr.Controllers
         {
             return View();
         }
-        [Route("404")]
-        public IActionResult Error404()
+        public IActionResult Expired()
+        {
+            return View();
+        }
+        public IActionResult NotFound()
         {
             return View();
         }

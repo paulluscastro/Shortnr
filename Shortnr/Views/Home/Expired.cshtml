@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    body {
+        background-image: url("/img/time_expired.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+    }
+    #expired-text {
+        background-color: rgba(0, 0, 0, 0.35);
+        color: white;
+    }
+    #expired-text,
+    #expired-text > h1,
+    #expired-text > h3
+    {
+        display: block;
+    }
+</style>
+
+<div class="whole-page centered-container">
+    <div id="expired-text">
+        <h1>Ops!</h1>
+        <h3>Looks like this link has expired.</h3>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,8 @@ namespace Shortnr.Api.Controllers
             Url url = _service.Access(shortened);
             if (url == null)
                 return NotFound();
+            else if (url.IsExpired())
+                return new StatusCodeResult((int)HttpStatusCode.Gone);
             else
                 return RedirectPermanent(url.OriginalUrl);
         }

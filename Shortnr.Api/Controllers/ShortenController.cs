@@ -44,9 +44,9 @@ namespace Shortnr.Api.Controllers
         [Route("{userId}/{shortened}")]
         public ActionResult<ShortenedUrlOutputDTO> Get(string userId, string shortened)
         {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(shortened)) return BadRequest();
             try
             {
-                if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(shortened)) return NotFound();
                 Url url = _service.Get(userId, shortened);
                 if (url == null)
                     return NotFound();
@@ -55,7 +55,7 @@ namespace Shortnr.Api.Controllers
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error during URL shortening. Message: {ex.Message}");
+                Debug.WriteLine($"Error during URL searching. Message: {ex.Message}");
                 return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
             }
         }
@@ -64,15 +64,19 @@ namespace Shortnr.Api.Controllers
         [Route("{userId}")]
         public ActionResult<List<ShortenedUrlOutputDTO>> Get(string userId)
         {
+            if (string.IsNullOrEmpty(userId)) return BadRequest();
             try
             {
                 List<Url> urls = _service.Get(userId);
-                return urls == null ? null : Ok(Convert(urls));
+                if (urls == null)
+                    return NotFound();
+                else
+                    return Ok(Convert(urls));
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error during URL shortening. Message: {ex.Message}");
-                throw ex;
+                return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
             }
         }
 
@@ -80,21 +84,26 @@ namespace Shortnr.Api.Controllers
         [Route("{userId}/{shortened}")]
         public ActionResult<Url> Post(string userId, string shortened, [FromBody] EditUrlInputDTO input)
         {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(shortened) || string.IsNullOrEmpty(input.NewShortened)) return BadRequest();
             try
             {
                 Url url = _service.Edit(input.UserId, shortened, input.NewShortened, input.Expiration);
-                return Ok(Convert(url));
+                if (url == null)
+                    return NotFound();
+                else
+                    return Ok(Convert(url));
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error during URL shortening. Message: {ex.Message}");
-                throw ex;
+                Debug.WriteLine($"Error during URL edition. Message: {ex.Message}");
+                return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
             }
         }
 
         [HttpPost]
         public ActionResult<Url> Post([FromBody] OriginalUrlInputDTO input)
         {
+            if (input == null || string.IsNullOrEmpty(input.OriginalUrl)) return BadRequest();
             try
             {
                 Url url = _service.Shorten(input.OriginalUrl, input.UserId, input.Expiration);
@@ -103,7 +112,7 @@ namespace Shortnr.Api.Controllers
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error during URL shortening. Message: {ex.Message}");
-                throw ex;
+                return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
             }
         }
     }
