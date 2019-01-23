@@ -32,6 +32,10 @@ namespace Shortnr.Controllers
         {
             return View();
         }
+        public IActionResult OriginalGist()
+        {
+            return View();
+        }
         public IActionResult About()
         {
             return View();
