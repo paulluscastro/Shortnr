@@ -78,9 +78,11 @@ body {
 footer,
 header,
 .navbar,
+.navbar-nav,
+.nav-link,
+.nav-link.text-dark,
 #user-menu,
-#user-menu > .dropdown-item
-{
+#user-menu > .dropdown-item {
     color: #6c757d !important;
     background-color: #2e2e2e !important;
 }

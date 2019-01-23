@@ -1,20 +1,64 @@
 ﻿@{
     ViewData["Title"] = "About Shortnr";
 }
+
+<style>
+    pre {
+        display: inline;
+        background: #dadada;
+        padding-right: 2px;
+        padding-left: 2px;
+    }
+</style>
+
 <h1>@ViewData["Title"]</h1>
 
-<p>Shortnr is a URL shortner created to attend a Hackatoon which required participants to develop a URL shortner like Bit.ly</p>
+<p>
+    <strong>Shortnr</strong> is a URL shortener created to attend a Hackaton which required participants to develop a URL shortener like Bit.ly following the requirements listed in <a href="https://gist.github.com/FylmTM/e3c4e5f337a176e94d6dd51703068925" target="_blank">this</a> Gist*.
+</p>
+<p>
+    <em> <strong>*</strong> if the Gist is not available I copied the original content <a asp-controller="Home" asp-action="OriginalGist">here</a>.</em>
+</p>
 
-<!--
-LIST OF HELPFUL LINKS
-https://docs.microsoft.com/pt-br/aspnet/core/tutorials/first-mvc-app/?view=aspnetcore-2.2
-https://getbootstrap.com/docs/4.0/components/forms/
-https://stackoverflow.com/questions/49634598/how-to-use-valuegeneratedonupdate-correctly
-https://stackoverflow.com/questions/50527157/ef-core-migrations-with-multiple-dbcontexts-on-single-database
-        https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/history-table
+<h2>Helpful links</h2>
 
-https://www.youtube.com/watch?v=vQxIt8gp7nY&t=318s
-https://docs.microsoft.com/pt-br/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.2
-http://www.tutorialsteacher.com/webapi/consume-web-api-get-method-in-aspnet-mvc
-https://www.codeproject.com/Articles/1257705/Running-ASP-NET-Web-API-Solution-in-Docker
--->
+<p>
+    The challenge was proposed to be solved preferably with Java, and, although I do know Java, I had a short time window to develop the solution and learn Docker, which I have never worked with before. In my opinion the .NET environment is much more productive and have better tools and extensions that help developers code faster, not to mention the C# syntax which I feel more comfortable with and is less verbose and ceremonious than Java.
+</p>
+<p>
+    To achieve the final result I had the help of some good people over the internet who take a part of their time to share knowledge with others. Bellow I will list the most helpful links that I found during my work:
+</p>
+<ul>
+    <li>
+        <strong><a href="https://www.youtube.com/watch?v=vQxIt8gp7nY" target="_blank">Build, Debug, Deploy ASP.NET Core Apps with Docker</a>:</strong>
+        As mentioned before I never had the opportunity to work with Docker but I knew that Visual Studio offered a good integration with docker tools. The question was "how do I deploy my content inside containers through Visual Studio?". Luckily this video showed me that everything is pretty straight forward and I had not to worry about it and focus on my solution.
+    </li>
+    <li>
+        <strong><a href="https://docs.microsoft.com/pt-br/aspnet/core/tutorials/first-mvc-app/?view=aspnetcore-2.2" target="_blank">Create a web app with ASP.NET Core MVC on Windows with Visual Studio</a>:</strong>
+        Everything is good, everything is great but my previous experience with Web Development was mostly with Java (JSF, Wicket and JSP) or Angular (with Java Jersey or ASP.NET Web API RESTful backends), so I had to take an overview on how to work with ASP.NET MVC to make things work properly. It was a pleasant experience this work with ASP.NET Core MVC.
+    </li>
+    <li>
+        <strong><a href="https://getbootstrap.com/docs/4.0/components/forms/" target="_blank">Bootstrap Documentation</a>:</strong>
+        Although I had previous experiences with Bootstrap I did it back in 2012 and, after that, had little contact with the CSS Framework. During this hiatus I used mostly Materialize CSS and Angular Material. Bootstrap is the default framework for ASP.NET MVC and, not to my surprise, I forgot the classes used in forms.
+    </li>
+    <li>
+        <strong><a href="https://docs.microsoft.com/pt-br/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.2" target="_blank">Dependency injection in ASP.NET Core</a>:</strong>
+        Shortly after started coding I came across the problem of dependency injection. In native .NET I solved it using <a href="https://www.nuget.org/packages/Unity" target="_blank">Unity</a>. As .NET Core is a little different from native .NET I did small research about the subject and was glad to know that ASP.NET Core offers its own Dependency Injector solution.
+    </li>
+    <li>
+        <strong><a href="https://www.codeproject.com/Articles/1257705/Running-ASP-NET-Web-API-Solution-in-Docker" target="_blank">Running ASP.NET Web API Solution in Docker</a>:</strong>
+        After some time "power coding" my URL shortener solution I had this insight that I was doing something wrong. Then I remembered that the requirement was to deliver an API. I did not want to waste the time I dedicated to my MVC project, so I split it into 2 projects: the API, where the shortening logic would be held, and the MVC project where users could use to iterate with the API.
+    </li>
+    <li>
+        <strong><a href="https://stackoverflow.com/questions/50527157/ef-core-migrations-with-multiple-dbcontexts-on-single-database" target="_blank">EF Core Migrations with multiple DbContexts on single database</a>:</strong>
+        Splitting the project in two brought me a little more complexity. Now I had two DbContexts accessing the same database, which became a problem because of migrations. This post helped me by proposing different migration tables names to each DbContext.
+    </li>
+    <li>
+        <strong><a href="https://stackoverflow.com/questions/49634598/how-to-use-valuegeneratedonupdate-correctly" target="_blank">How to use ValueGeneratedOnUpdate() correctly?</a>:</strong>
+        After some time using Entity Framework 6 (.NET Native) I had high expectations around EF Core, specially regarding to the use <pre>ValueGeneratedOnAddOrUpdate()</pre>. I ended up extremely frustrated to know that its migrations do not create the triggers to fill this field automatically. After a long time researching this was the post that said clearly that we would have to edit our migration files (just like we have to on EF6).
+    </li>
+    <li>
+        <strong><a href="http://www.tutorialsteacher.com/webapi/consume-web-api-get-method-in-aspnet-mvc" target="_blank">Consume Web API Get method in ASP.NET MVC</a>:</strong>
+        Now I had two working solutions that did great separetely but I did not know how to integrate them. The real problem was around Docker ports and network, but this post (and the one from Code Project) pointed me in the right direction on how put the 2 solutions together.
+    </li>
+</ul>
