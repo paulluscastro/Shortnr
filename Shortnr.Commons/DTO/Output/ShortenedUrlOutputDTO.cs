@@ -13,6 +13,7 @@ namespace Shortnr.Commons.DTO.Output
         [Display(Name = "Original")]
         public string OriginalUrl { get; set; }
         public LinkExpiration Expiration { get; set; }
+        [NonSerialized]
         [Display(Name = "Expires on")]
         public string ExpiresOn
         {
