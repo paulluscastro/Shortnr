@@ -2,18 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Shortnr.Commons.DTO.Output
 {
+    [DataContract]
     public class ShortenedUrlOutputDTO
     {
+        [DataMember]
         [Display(Name = "Shortened")]
         public string ShortenedUrl { get; set; }
+        [DataMember]
         [Display(Name = "Original")]
         public string OriginalUrl { get; set; }
         public LinkExpiration Expiration { get; set; }
-        [NonSerialized]
         [Display(Name = "Expires on")]
         public string ExpiresOn
         {
@@ -34,14 +37,18 @@ namespace Shortnr.Commons.DTO.Output
                 }
             }
         }
+        [DataMember]
         [Display(Name = "Created on")]
         [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy (HH:mm:ss)}")]
         public DateTime Created { get; set; }
+        [DataMember]
         [Display(Name = "Last updated on")]
         [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy (HH:mm:ss)}")]
         public DateTime LastUpdated { get; set; }
+        [DataMember]
         [Display(Name = "Number of accesses")]
         public int Accesses { get; set; }
+        [DataMember]
         [Display(Name = "Last accessed on")]
         [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy (HH:mm:ss)}")]
         public DateTime? LastAccess { get; set; }
